@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<html>
+        <head>
+        <script type="text/javascript" src="./jquery-1.9.1.js"></script> 
+        <script type="text/javascript">
+        $(document).ready(function(){
+        function display(){
+        var str=$("#state").val();
+        $("p").html("<b> Value </b>"+str);
+        }
+        $("select").change(display);
+        display();
+        });
+        </script>
+        </head>
+        <body>
+        <p> </p>
+        <select id="state">
+        <option> Mumbai </option>
+        <option> Delhi </option>
+        <option> Banglore </option>
+        <option> Kolkata </option>
+        <option> Chennai </option>
+        <option> Pune </option>
+        <option> Hydrabad </option>
+        <option> Chandigarh </option>
+        <option> Ahmdebad </option>
+        <option> Pondicherry </option>
+        </select>
+        </body>
+        </html>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganesh Mali - UI/UX & Graphic Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
+            --secondary-gradient: linear-gradient(135deg, #ff9966, #ff5e62);
+            --dark-background: linear-gradient(135deg, #1a1a2e, #16213e);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #f0f0f0;
+            background: #0d0d1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* --- Landing Page (Hero Section) --- */
+        #hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background: var(--primary-gradient);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 50px;
+            background: var(--secondary-gradient);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 20px 5px rgba(255, 153, 102, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        /* Glassmorphism Blobs */
+        .glass-blob {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: var(--glass-border);
+            animation: blobMove 20s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .blob-1 { top: 10%; left: 15%; width: 250px; height: 250px; }
+        .blob-2 { bottom: 20%; right: 10%; width: 300px; height: 300px; }
+        .blob-3 { top: 50%; left: -5%; width: 200px; height: 200px; }
+
+        @keyframes blobMove {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-20px, 30px) scale(1.1); }
+            50% { transform: translate(40px, -50px) scale(0.9); }
+            75% { transform: translate(-30px, 20px) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* --- About Me Section --- */
+        #about {
+            background-color: #0d0d1a;
+            text-align: center;
+        }
+
+        .about-card {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: var(--glass-border);
+            padding: 40px;
+        }
+
+        .profile-image-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .profile-image-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 20px;
+            background: var(--primary-gradient);
+            z-index: -1;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+        }
+
+        .about-text {
+            flex: 2;
+            text-align: left;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .skills-container {
+            margin-top: 30px;
+        }
+
+        .skill-bar {
+            margin-bottom: 20px;
+        }
+
+        .skill-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .skill-fill {
+            height: 10px;
+            background: var(--secondary-gradient);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        /* --- Education Section (Timeline) --- */
+        #education {
+            background: var(--dark-background);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-gradient);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            padding-right: 50%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+            padding-right: 0;
+            text-align: left;
+        }
+
+        .timeline-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-node {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px rgba(127, 0, 255, 0.7);
+        }
+
+        .timeline-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 10px;
+            border: var(--glass-border);
+            padding: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- My Work (Portfolio Showcase) --- */
+        #my-work {
+            background-color: #0d0d1a;
+        }
+
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .filter-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button.active {
+            background: var(--secondary-gradient);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: var(--primary-gradient);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .project-card img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 114, 255, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Contact Me Section --- */
+        #contact {
+            background: var(--primary-gradient);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        .contact-form-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: var(--glass-border);
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: #ccc;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: var(--glass-border);
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #fff;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group input:focus + label, .form-group textarea:focus + label,
+        .form-group input:valid + label, .form-group textarea:valid + label {
+            top: -20px;
+            left: 0;
+            font-size: 0.8rem;
+            color: white;
+        }
+        
+        .social-icons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 2rem;
+            margin: 0 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+        }
+
+        /* --- Footer Section --- */
+        footer {
+            background: var(--dark-background);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Ganesh Mali</h1>
+            <p>Creative UI/UX & Graphic Designer</p>
+            <a href="#my-work" class="cta-button">View My Work</a>
+        </div>
+        <div class="glass-blob blob-1"></div>
+        <div class="glass-blob blob-2"></div>
+        <div class="glass-blob blob-3"></div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-card">
+                <div class="profile-image-container">
+                    <img src="https://via.placeholder.com/400" alt="Ganesh Mali Profile Picture">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Hello! I'm Ganesh, a passionate UI/UX and Graphic Designer with a knack for creating beautiful and intuitive digital experiences. My work is a blend of creative design and user-centered thinking, ensuring every project is not only visually stunning but also highly functional. I love bringing ideas to life through elegant design solutions.</p>
+                    <div class="skills-container">
+                        <div class="skill-bar">
+                            <span class="skill-label">UI/UX Design</span>
+                            <div class="skill-fill" data-level="90%"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="skill-label">Graphic Design</span>
+                            <div class="skill-fill" data-level="85%"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <span class="skill-label">Web Development</span>
+                            <div class="skill-fill" data-level="70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2 class="text-center">Education & Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card glass-card">
+                        <h3>Master of Design</h3>
+                        <p>National Institute of Design | 2021 - 2023</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card glass-card">
+                        <h3>Senior UI/UX Designer</h3>
+                        <p>Creative Studio Co. | 2023 - Present</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card glass-card">
+                        <h3>Bachelor of Fine Arts</h3>
+                        <p>University of Arts | 2017 - 2021</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-work">
+        <div class="container">
+            <h2 class="text-center">My Work</h2>
+            <div class="filter-buttons">
+                <button class="filter-button active" data-filter="all">All</button>
+                <button class="filter-button" data-filter="ui-ux">UI/UX</button>
+                <button class="filter-button" data-filter="web">Web</button>
+                <button class="filter-button" data-filter="graphics">Graphics</button>
+            </div>
+            <div class="portfolio-grid">
+                <div class="project-card ui-ux">
+                    <img src="https://via.placeholder.com/600x400/0072ff/ffffff?text=Project+1" alt="Project 1">
+                    <div class="project-overlay">
+                        <h3>Project Name 1</h3>
+                        <p>A mobile app UI/UX redesign.</p>
+                    </div>
+                </div>
+                <div class="project-card web">
+                    <img src="https://via.placeholder.com/600x400/ff9966/ffffff?text=Project+2" alt="Project 2">
+                    <div class="project-overlay">
+                        <h3>Project Name 2</h3>
+                        <p>A responsive marketing website.</p>
+                    </div>
+                </div>
+                <div class="project-card graphics">
+                    <img src="https://via.placeholder.com/600x400/7F00FF/ffffff?text=Project+3" alt="Project 3">
+                    <div class="project-overlay">
+                        <h3>Project Name 3</h3>
+                        <p>Branding and logo design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-center">Get In Touch</h2>
+            <div class="contact-form-card">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" required>
+                        <label for="email">Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="5" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+                    <button type="submit" class="cta-button">Send Message</button>
+                </form>
+                <div class="social-icons">
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://behance.net" target="_blank"><i class="fab fa-behance-square"></i></a>
+                    <a href="https://dribbble.com" target="_blank"><i class="fab fa-dribbble-square"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ganesh Mali. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for fade-up animations
+        const observerOptions = {
+            threshold: 0.4
+        };
+
+        const sections = document.querySelectorAll('.timeline-item');
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Intersection Observer for skill bars
+        const skillBars = document.querySelectorAll('.skill-fill');
+        const skillObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBar = entry.target;
+                    skillBar.style.width = skillBar.getAttribute('data-level');
+                    observer.unobserve(skillBar);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        skillBars.forEach(bar => {
+            skillObserver.observe(bar);
+        });
+
+        // Portfolio filtering
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelector('.filter-button.active').classList.remove('active');
+                this.classList.add('active');
+                const filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.project-card').forEach(card => {
+                    if (filter === 'all' || card.classList.contains(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Simple form validation (in a real-world app, you'd handle this on the server)
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent! (This is a demo)');
+            contactForm.reset();
+        });
+
+    </script>
+</body>
+</html>

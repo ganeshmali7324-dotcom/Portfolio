@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>UI/UX Portfolio</title>
+      <style>
+        body {
+          margin: 0;
+          font-family: 'Comic Sans MS', cursive, sans-serif;
+          background-color: #1e1e1e;
+          color: white;
+          overflow-x: hidden;
+        }
+    
+        /* --- Section 1: Portfolio Intro --- */
+        .portfolio-section {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          background-color: #1e1e1e;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+    
+        .portfolio-title {
+          font-size: 5rem;
+          font-weight: bold;
+          color: white;
+          letter-spacing: 2px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+    
+        .portfolio-title .highlight {
+          color: #4a90e2;
+        }
+    
+        .portfolio-box {
+          border: 2px solid #4a90e2;
+          padding: 10px 20px;
+          display: inline-block;
+        }
+    
+        .uiux-box {
+          position: absolute;
+          top: 10%;
+          left: 40%;
+          background-color: #b37d00;
+          padding: 10px 30px;
+          color: white;
+          font-size: 1.5rem;
+          border-radius: 40px;
+          transform: rotate(-5deg);
+          border: 3px solid #f0a500;
+        }
+    
+        .name-tag {
+          background-color: #b24b7b;
+          padding: 10px 25px;
+          border-radius: 30px;
+          font-size: 1.2rem;
+          margin-top: 30px;
+        }
+    
+        .year-tag {
+          background-color: #28a745;
+          padding: 10px 25px;
+          border-radius: 25px;
+          font-size: 1.2rem;
+          margin-top: 10px;
+          border: 2px solid #00ff00;
+          transform: rotate(5deg);
+        }
+    
+        .grid-overlay {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+          background-size: 40px 40px;
+          pointer-events: none;
+        }
+    
+        .blue-star {
+          position: absolute;
+          left: 5%;
+          bottom: 15%;
+          width: 60px;
+          height: 60px;
+        }
+    
+        .blue-star::before,
+        .blue-star::after {
+          content: '';
+          position: absolute;
+          background-color: #00aaff;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+    
+        .blue-star::before {
+          width: 8px;
+          height: 60px;
+        }
+    
+        .blue-star::after {
+          width: 60px;
+          height: 8px;
+        }
+    
+        .pointer {
+          position: absolute;
+          left: 45%;
+          top: 58%;
+          font-size: 2rem;
+          color: pink;
+          transform: rotate(-25deg);
+        }
+    
+        /* --- Section 2: About Me --- */
+        .about-section {
+          display: flex;
+          padding: 80px 50px;
+          background-color: #1e1e1e;
+          color: white;
+          align-items: center;
+          justify-content: space-between;
+        }
+    
+        .about-text {
+          max-width: 50%;
+        }
+    
+        .about-text h1 {
+          font-size: 3rem;
+          margin: 0;
+        }
+    
+        .about-text p {
+          font-family: 'Helvetica Neue', sans-serif;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-top: 20px;
+        }
+    
+        .hello-box {
+          font-weight: bold;
+          font-size: 1.8rem;
+          border: 3px solid #4a90e2;
+          display: inline-block;
+          padding: 10px 20px;
+          transform: rotate(-5deg);
+          margin-bottom: 20px;
+        }
+    
+        .pointer-blue {
+          font-size: 2rem;
+          color: #4a90e2;
+          transform: rotate(20deg);
+          display: inline-block;
+          margin-left: 10px;
+        }
+    
+        .about-image {
+          width: 40%;
+          position: relative;
+        }
+    
+        .about-image img {
+          width: 100%;
+          border-radius: 0 0 50% 50%;
+          border: 8px solid #333;
+        }
+    
+        .pink-atom {
+          position: absolute;
+          top: -40px;
+          right: 20px;
+          font-size: 3rem;
+          color: #f48fb1;
+        }
+    
+        .yellow-stripes {
+          position: absolute;
+          left: -30px;
+          bottom: -30px;
+          color: #ffc107;
+          font-size: 2rem;
+        }
+    
+        .bg-grid-right {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 200px;
+          height: 200px;
+          background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <!-- Portfolio Section -->
+      <div class="portfolio-section">
+        <div class="grid-overlay"></div>
+        <div class="uiux-box">UI/UX</div>
+        <div class="portfolio-box">
+          <div class="portfolio-title">
+            PORTOF<span class="highlight">O</span>LIO
+          </div>
+        </div>
+        <div class="pointer">⬆</div>
+        <div class="name-tag">Pruthvi Kotharkar</div>
+        <div class="year-tag">2025</div>
+        <div class="blue-star"></div>
+      </div>
+    
+      <!-- About Me Section -->
+      <div class="about-section">
+        <div class="about-text">
+          <div class="hello-box">HELLO <span class="pointer-blue">➤</span></div>
+          <h1>I’m Pruthvi 👨🏻‍💻</h1>
+          <p>
+            With 5+ years in UI/UX design, I’ve helped startups and enterprises create intuitive, scalable digital products. I specialize in building design systems, crafting user-centric interfaces, and collaborating closely with cross-functional teams to deliver high-impact results across B2B & B2C, SaaS, and e-commerce sectors.🚀
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="/mnt/data/7ad3bb47-1f81-49d3-9674-b568d822c255.png" alt="Pruthvi">
+          <div class="pink-atom">✯</div>
+          <div class="yellow-stripes">≡≡≡</div>
+          <div class="bg-grid-right"></div>
+        </div>
+      </div>
+      
+    </body>
+    </html>
+    
+  </style>
+</head>
+
+</body>
+</html>

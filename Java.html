@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+    <script>
+      document.write("<h1>Ganesh</h1>");
+        console.log("ganesh");
+         // Data Types
+        // String => "AYush123$#7"
+        // Char => 'a'
+
+        // Integer => 62632
+        // float => 4.4234
+        // double => 4.455445446
+        // long => 4.3752635763256732567532
+
+        // Variables
+        // var name = "Ayush";
+        // var age = 17;
+        // document.write(name+" "+age);
+
+        // var name = prompt("Enter your name:");
+        // document.write(name);
+
+        var n1 = parseInt(prompt("Enter your name:"));
+        var n2 = parseInt(prompt("Enter your name:"));
+        var sign = prompt("Enter your sign (+,-,*,/,%):");
+
+        if(sign == "+"){
+            var result = n1+ n2;
+            document.write(result);
+        }
+        else if(sign == "-"){
+            var result = n1- n2;
+            document.write(result);
+        }
+        else if(sign == "*"){
+            var result = n1*n2;
+            document.write(result);
+        }
+        else if(sign == "/"){
+            var result = n1/ n2;
+            document.write(result);
+        }
+        else if(sign == "%"){
+            var result = n1% n2;
+            document.write(result);
+        }
+        else{
+            document.write("Invalid option");
+        }
+        
+        var array = ['apple', 'banana', 'orange', 'Mango'];
+
+            document.write(array,"<br>");
+
+            var fruits=new Array("apple","mango");
+
+            document.write(fruits,"<br>");
+
+            document.write("Length of array : ",fruits.length);
+
+            for (var i = 0; i < fruits.length; i++) { 
+                document.write(fruits[i] , "</br>"); 
+            }
+
+            // 1. Accessing Elements
+                document.write("First Element:", fruits[0]);
+                document.write("Last Element:", fruits[fruits.length - 1]);
+
+                // 2. Adding Elements
+                fruits.push("Orange"); // Adds at the end
+                document.write("After Push:", fruits);
+
+                fruits.unshift("Mango"); // Adds at the beginning
+                document.write("After Unshift:", fruits);
+
+                // 3. Removing Elements
+                fruits.pop(); // Removes the last element
+                document.write("After Pop:", fruits);
+
+                fruits.shift(); // Removes the first element
+                document.write("After Shift:", fruits);
+
+                // 4. Finding an Element
+                let index = fruits.indexOf("Banana");
+                document.write("Index of 'Banana':", index);
+
+                let notFound = fruits.indexOf("Grapes"); // Returns -1 if not found
+                document.write("Index of 'Grapes':", notFound);
+
+                // 5. Checking if an Element Exists
+                let hasCherry = fruits.includes("Cherry");
+                document.write("Array includes 'Cherry':", hasCherry);
+
+                // 6. Modifying Elements
+                fruits[1] = "Strawberry"; // Replace the second element
+                document.write("After Modification:", fruits);
+
+
+                // 7. Join - Converts array to string
+                let joinedString = fruits.join(", ");
+                console.log("Joined String:", joinedString);
+
+                // 8. Split - Converts string back to array
+                let splitArray = joinedString.split(", ");
+                console.log("Split Back to Array:", splitArray);
+                <form onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username">
+        <span id="usernameError" class="error"></span>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" placeholder="Enter your email">
+        <span id="emailError" class="error"></span>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <span id="passwordError" class="error"></span>
+
+        <button type="submit">Submit</button>
+    </form>
+    function validateForm() {
+            // Get input values
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            // Get error display elements
+            const usernameError = document.getElementById("usernameError");
+            const emailError = document.getElementById("emailError");
+            const passwordError = document.getElementById("passwordError");
+
+            // Reset error messages
+            usernameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+
+            let isValid = true;
+
+            // Validate Username
+            if (username === "") {
+                usernameError.textContent = "Username cannot be empty.";
+                isValid = false;
+            }
+
+            // Validate Email (basic check)
+            if (email === "") {
+                emailError.textContent = "Email cannot be empty.";
+                isValid = false;
+            } else if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+                emailError.textContent = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            // Validate Password
+            if (password === "") {
+                passwordError.textContent = "Password cannot be empty.";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                isValid = false;
+            }
+
+            // Return false to prevent form submission if validation fails
+            return isValid;
+        }
+
+
+
+    </script>
+</body>
+</html>

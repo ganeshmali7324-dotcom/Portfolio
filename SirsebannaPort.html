@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ganesh Mali - Creative UI/UX & Graphic Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1117;
+            color: #e6edf3;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .neumorphism {
+            box-shadow: 20px 20px 60px #0a0e14, -20px -20px 60px #101820;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #a770ef, #cf7af5, #f1a3a3, #fcc53c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #1f2a3a, #0a111a);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(167,112,239,0.2) 0%, transparent 50%),
+                        radial-gradient(circle, rgba(207,122,245,0.2) 0%, transparent 50%),
+                        radial-gradient(circle, rgba(241,163,163,0.2) 0%, transparent 50%);
+            animation: move-shapes 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes move-shapes {
+            0% { transform: scale(1.0) translate(0, 0); }
+            25% { transform: scale(1.1) translate(10%, -10%); }
+            50% { transform: scale(1.2) translate(-10%, 10%); }
+            75% { transform: scale(1.1) translate(10%, 10%); }
+            100% { transform: scale(1.0) translate(0, 0); }
+        }
+
+        .scroll-to-button {
+            transition: all 0.3s ease;
+        }
+
+        .scroll-to-button:hover {
+            box-shadow: 0 0 20px rgba(167, 112, 239, 0.6), 0 0 40px rgba(207, 122, 245, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .project-card img {
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        .project-overlay {
+            background: rgba(0,0,0,0.5);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, #a770ef, #cf7af5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(167,112,239,0.4);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .timeline-circle {
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #a770ef;
+            border: 3px solid #0d1117;
+            transition: transform 0.3s ease;
+        }
+        .timeline-item:hover .timeline-circle {
+            transform: scale(1.2);
+        }
+
+        .input-group {
+            position: relative;
+        }
+        .input-group input, .input-group textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+        .input-group label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+        }
+        .input-group input:focus, .input-group textarea:focus,
+        .input-group input:not(:placeholder-shown), .input-group textarea:not(:placeholder-shown) {
+            border-color: #a770ef;
+        }
+        .input-group input:focus + label, .input-group textarea:focus + label,
+        .input-group input:not(:placeholder-shown) + label, .input-group textarea:not(:placeholder-shown) + label {
+            top: -0.75rem;
+            left: 1rem;
+            font-size: 0.75rem;
+            color: #a770ef;
+            background: #0d1117;
+            padding: 0 0.25rem;
+        }
+
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #a770ef;
+        }
+        .social-icon svg {
+            fill: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .about-section-content {
+                flex-direction: column;
+            }
+            .about-section-content > div {
+                width: 100%;
+            }
+            .about-section-content > div:first-child {
+                order: 2;
+                margin-top: 2rem;
+            }
+            .about-section-content > div:last-child {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-[#e6edf3]">
+
+    <!-- Landing Page (Hero Section) -->
+    <section id="hero" class="hero-bg h-screen flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">
+        <div class="z-10 animate-fade-in-up">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight gradient-text mb-4" data-sr-id="1">Ganesh Mali</h1>
+            <p class="text-lg sm:text-2xl md:text-3xl font-light text-white/80" data-sr-id="2">Creative UI/UX & Graphic Designer</p>
+            <a href="#my-work" class="mt-8 px-8 py-3 rounded-full text-white font-medium scroll-to-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-transform duration-300 transform hover:scale-105 inline-block" data-sr-id="3">
+                See My Work
+            </a>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about-me" class="py-20 px-4 md:px-16 container mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 gradient-text" data-sr-id="4">About Me</h2>
+        <div class="about-section-content flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16">
+            <!-- Image Column -->
+            <div class="w-full md:w-1/2 flex justify-center p-4" data-sr-id="5">
+                <div class="relative w-full max-w-sm rounded-3xl overflow-hidden glass neumorphism p-4">
+                    <img src="https://placehold.co/400x500/1E90FF/ffffff?text=Your+Image" alt="Ganesh Mali" class="rounded-2xl w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+            <!-- Text Column -->
+            <div class="w-full md:w-1/2 p-4" data-sr-id="6">
+                <p class="text-lg mb-6 leading-relaxed">
+                    Hello! I'm Ganesh Mali, a dedicated UI/UX and Graphic Designer with a passion for creating beautiful, intuitive, and user-centric digital experiences. I specialize in crafting clean and functional designs that solve real-world problems and leave a lasting impression.
+                </p>
+                <p class="text-lg leading-relaxed">
+                    My skills include UI/UX design, wireframing, prototyping, user research, and a deep understanding of visual communication. I'm always eager to learn and explore new design trends and technologies to bring fresh ideas to my projects.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2 p-3 rounded-full glass neumorphism" data-sr-id="7">
+                        <svg class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L12 19.25L14.25 17M12 4V19.25M4.75 11H19.25" />
+                        </svg>
+                        <span class="text-sm font-medium">UI/UX Design</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-full glass neumorphism" data-sr-id="8">
+                        <svg class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        <span class="text-sm font-medium">Graphic Design</span>
+                    </div>
+                    <div class="flex items-center gap-2 p-3 rounded-full glass neumorphism" data-sr-id="9">
+                        <svg class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m-4 16l4-16" />
+                        </svg>
+                        <span class="text-sm font-medium">Prototyping</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 px-4 md:px-16 container mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 gradient-text" data-sr-id="10">Education</h2>
+        <div class="relative max-w-3xl mx-auto">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item mb-12" data-sr-id="11">
+                <div class="timeline-circle"></div>
+                <div class="glass p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-white/90">Master of Design</h3>
+                    <p class="text-sm text-white/60 mb-2">2018 - 2020</p>
+                    <p class="text-white/80">University of Mumbai</p>
+                </div>
+            </div>
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item mb-12" data-sr-id="12">
+                <div class="timeline-circle"></div>
+                <div class="glass p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-white/90">Bachelor of Arts in Graphic Design</h3>
+                    <p class="text-sm text-white/60 mb-2">2014 - 2018</p>
+                    <p class="text-white/80">Delhi University</p>
+                </div>
+            </div>
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item mb-12" data-sr-id="13">
+                <div class="timeline-circle"></div>
+                <div class="glass p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-white/90">Advanced Certificate in UI/UX</h3>
+                    <p class="text-sm text-white/60 mb-2">2021</p>
+                    <p class="text-white/80">Online Course</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Work (Portfolio Showcase) -->
+    <section id="my-work" class="py-20 px-4 md:px-16 container mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 gradient-text" data-sr-id="14">My Work</h2>
+        <!-- Filter Buttons -->
+        <div class="flex justify-center gap-4 mb-12 flex-wrap" data-sr-id="15">
+            <button class="filter-btn active px-6 py-2 rounded-full font-medium transition-colors duration-300" data-filter="all">All</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium transition-colors duration-300" data-filter="uiux">UI/UX</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium transition-colors duration-300" data-filter="graphics">Graphics</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium transition-colors duration-300" data-filter="web">Web</button>
+        </div>
+        <!-- Project Grid -->
+        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 (UI/UX) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="uiux" data-sr-id="16">
+                <img src="https://placehold.co/600x400/2C3E50/ffffff?text=UI%2FUX+Project+1" alt="Project 1" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">Mobile App Redesign</h3>
+                        <p class="text-sm text-white/80">UI/UX Case Study</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 2 (Graphics) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="graphics" data-sr-id="17">
+                <img src="https://placehold.co/600x400/9B59B6/ffffff?text=Graphic+Project+1" alt="Project 2" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">Brand Identity</h3>
+                        <p class="text-sm text-white/80">Logo & Visuals</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 3 (Web) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="web" data-sr-id="18">
+                <img src="https://placehold.co/600x400/34495E/ffffff?text=Web+Project+1" alt="Project 3" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">E-commerce Website</h3>
+                        <p class="text-sm text-white/80">Web Development</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 4 (UI/UX) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="uiux" data-sr-id="19">
+                <img src="https://placehold.co/600x400/5DADE2/ffffff?text=UI%2FUX+Project+2" alt="Project 4" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">Dashboard Concept</h3>
+                        <p class="text-sm text-white/80">UI/UX Design</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 5 (Graphics) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="graphics" data-sr-id="20">
+                <img src="https://placehold.co/600x400/512DA8/ffffff?text=Graphic+Project+2" alt="Project 5" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">Illustration Series</h3>
+                        <p class="text-sm text-white/80">Digital Art</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 6 (Web) -->
+            <div class="project-card rounded-2xl overflow-hidden glass relative" data-category="web" data-sr-id="21">
+                <img src="https://placehold.co/600x400/F5CBA7/ffffff?text=Web+Project+2" alt="Project 6" class="w-full h-auto object-cover">
+                <div class="project-overlay absolute inset-0 flex items-center justify-center p-4 text-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">Portfolio Website</h3>
+                        <p class="text-sm text-white/80">Web Design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Me Section -->
+    <section id="contact" class="py-20 px-4 md:px-16 container mx-auto">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 gradient-text" data-sr-id="22">Contact Me</h2>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+            <!-- Social Icons -->
+            <div class="flex flex-col gap-6" data-sr-id="23">
+                <a href="#" class="social-icon w-16 h-16 flex items-center justify-center rounded-full glass neumorphism">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="#E6EDF3"/></svg>
+                </a>
+                <a href="#" class="social-icon w-16 h-16 flex items-center justify-center rounded-full glass neumorphism">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-8 12c0-2.209 1.547-4.102 3.847-4.802l.666 2.016c-1.42.368-2.388 1.144-2.833 2.062h3.32v1.5h-4.996c.205 1.517 1.345 2.673 2.832 3.123l-.634 2.002c-2.204-.693-3.798-2.617-3.798-4.901zm11.964 5.923c-2.395-.892-3.811-2.92-3.811-5.423 0-2.502 1.416-4.531 3.811-5.423l.634 2.002c-1.488.45-2.627 1.606-2.833 3.123h4.996v1.5h-3.32c.445.918 1.413 1.694 2.833 2.062l-.666 2.016z" fill="#E6EDF3"/></svg>
+                </a>
+                <a href="#" class="social-icon w-16 h-16 flex items-center justify-center rounded-full glass neumorphism">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.653 17.514c.435-.436.435-1.143 0-1.579-.436-.436-1.144-.436-1.579 0-.964.965-2.245 1.499-3.626 1.499s-2.662-.534-3.626-1.499c-.436-.436-1.143-.436-1.579 0-.435.436-.435 1.143 0 1.579 1.455 1.455 3.393 2.254 5.485 2.254s4.03-.799 5.485-2.254zm-2.827-8.498c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-7.653 0c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm7.653-5.016c.435-.436.435-1.143 0-1.579-.436-.436-1.143-.436-1.579 0-1.042 1.043-2.422 1.611-3.874 1.611-1.452 0-2.831-.568-3.874-1.611-.436-.436-1.143-.436-1.579 0-.435.436-.435 1.143 0 1.579 1.678 1.678 3.904 2.597 6.096 2.597s4.418-.919 6.096-2.597z" fill="#E6EDF3"/></svg>
+                </a>
+            </div>
+            <!-- Contact Form -->
+            <form class="w-full max-w-lg glass p-8 rounded-2xl neumorphism" data-sr-id="24">
+                <div class="input-group mb-6">
+                    <input type="text" id="name" name="name" placeholder=" " required class="w-full rounded-lg outline-none">
+                    <label for="name">Your Name</label>
+                </div>
+                <div class="input-group mb-6">
+                    <input type="email" id="email" name="email" placeholder=" " required class="w-full rounded-lg outline-none">
+                    <label for="email">Your Email</label>
+                </div>
+                <div class="input-group mb-6">
+                    <textarea id="message" name="message" rows="4" placeholder=" " required class="w-full rounded-lg outline-none resize-none"></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-full text-white font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-transform duration-300 transform hover:scale-105">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0e14] py-8 text-center text-white/60">
+        <p>&copy; 2024 Ganesh Mali. All Rights Reserved.</p>
+        <div class="flex justify-center gap-6 mt-4">
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="currentColor"/></svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-8 12c0-2.209 1.547-4.102 3.847-4.802l.666 2.016c-1.42.368-2.388 1.144-2.833 2.062h3.32v1.5h-4.996c.205 1.517 1.345 2.673 2.832 3.123l-.634 2.002c-2.204-.693-3.798-2.617-3.798-4.901zm11.964 5.923c-2.395-.892-3.811-2.92-3.811-5.423 0-2.502 1.416-4.531 3.811-5.423l.634 2.002c-1.488.45-2.627 1.606-2.833 3.123h4.996v1.5h-3.32c.445.918 1.413 1.694 2.833 2.062l-.666 2.016z" fill="currentColor"/></svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.653 17.514c.435-.436.435-1.143 0-1.579-.436-.436-1.144-.436-1.579 0-.964.965-2.245 1.499-3.626 1.499s-2.662-.534-3.626-1.499c-.436-.436-1.143-.436-1.579 0-.435.436-.435 1.143 0 1.579 1.455 1.455 3.393 2.254 5.485 2.254s4.03-..799 5.485-2.254zm-2.827-8.498c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm-7.653 0c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1zm7.653-5.016c.435-.436.435-1.143 0-1.579-.436-.436-1.143-.436-1.579 0-1.042 1.043-2.422 1.611-3.874 1.611-1.452 0-2.831-.568-3.874-1.611-.436-.436-1.143-.436-1.579 0-.435.436-.435 1.143 0 1.579 1.678 1.678 3.904 2.597 6.096 2.597s4.418-.919 6.096-2.597z" fill="currentColor"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ScrollReveal for animations
+            ScrollReveal({ distance: '50px', duration: 1000, easing: 'cubic-bezier(0.5, 0, 0, 1)' });
+
+            ScrollReveal().reveal('.animate-fade-in-up', { origin: 'bottom', interval: 100 });
+            ScrollReveal().reveal('.about-section-content', { origin: 'bottom', delay: 200 });
+            ScrollReveal().reveal('.timeline-item', { origin: 'left', interval: 200 });
+            ScrollReveal().reveal('.project-card', { origin: 'bottom', interval: 100 });
+            ScrollReveal().reveal('form, .social-icon', { origin: 'right', interval: 100 });
+
+            // Smooth scrolling for call-to-action button
+            document.querySelector('.scroll-to-button').addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Portfolio filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectGrid = document.getElementById('project-grid');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    document.querySelectorAll('.project-card').forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filterValue === 'all' || category === filterValue) {
+                            card.style.display = 'block';
+                            setTimeout(() => card.style.opacity = '1', 50); // Simple fade-in
+                        } else {
+                            card.style.display = 'none';
+                            card.style.opacity = '0';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

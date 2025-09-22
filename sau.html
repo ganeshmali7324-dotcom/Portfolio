@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saurabh Jabtap - Artistic Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root {
+            --primary-bg: #E0E7F0; /* Light, off-white background */
+            --secondary-bg: #D1D9E6; /* Slightly darker shade for claymorphism elements */
+            --primary-text: #34495E; /* Dark blue-grey for text */
+            --accent-color: #4AB8A8; /* A vibrant teal for accents */
+            --clay-shadow-light: #F0F8FF; /* Very light shadow, almost white */
+            --clay-shadow-dark: #A7B3C4; /* Light, subtle dark shadow */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Updated CSS-based starfield pattern for the new color palette */
+            background-image:
+                radial-gradient(ellipse at 10% 10%, #4AB8A81A 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 90%, #4AB8A81A 0%, transparent 50%),
+                linear-gradient(20deg, transparent 50%, #D1D9E6 50%),
+                linear-gradient(160deg, transparent 50%, #D1D9E6 50%),
+                radial-gradient(circle at 15% 85%, #34495E26 1px, transparent 1px),
+                radial-gradient(circle at 85% 15%, #34495E26 1px, transparent 1px);
+            background-size:
+                200% 200%,
+                200% 200%,
+                100% 100%,
+                100% 100%,
+                50px 50px,
+                50px 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: gradient-shift 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%, 100% 50%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+            100% { background-position: 100% 50%, 0% 50%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .claymorphism {
+            border-radius: 1.5rem;
+            background: var(--secondary-bg);
+            /* Updated shadow values for a softer, lighter effect */
+            box-shadow: 8px 8px 16px var(--clay-shadow-dark),
+                        -8px -8px 16px var(--clay-shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .claymorphism:hover {
+            transform: translateY(-5px) scale(1.02);
+            /* Updated shadow values for the hover state */
+            box-shadow: 6px 6px 12px var(--clay-shadow-dark),
+                        -6px -6px 12px var(--clay-shadow-light);
+        }
+
+        .cta-button {
+            border-radius: 9999px;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            box-shadow: 8px 8px 16px rgba(0,0,0,0.1), -8px -8px 16px rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.15), -10px -10px 20px rgba(255,255,255,0.8);
+        }
+
+        .project-card .img-container {
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .project-card .img-container img {
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .img-container img {
+            transform: scale(1.05);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            box-shadow: inset 5px 5px 10px var(--clay-shadow-dark),
+                        inset -5px -5px 10px var(--clay-shadow-light);
+            transform: scale(0.98);
+        }
+
+        /* Styling for form elements */
+        .form-input, .form-textarea {
+            background: var(--secondary-bg);
+            border: 2px solid var(--secondary-bg);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            box-shadow: inset 4px 4px 8px var(--clay-shadow-dark),
+                        inset -4px -4px 8px var(--clay-shadow-light);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: inset 2px 2px 4px var(--clay-shadow-dark),
+                        inset -2px -2px 4px var(--clay-shadow-light);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: var(--primary-text);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="bg-[--primary-bg] text-[--primary-text]">
+
+    <header class="fixed top-0 left-0 w-full z-20 transition-all duration-300 backdrop-blur-sm bg-[--secondary-bg]/60" id="navbar">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold font-['Playfair_Display']">S.J.</a>
+            <ul class="hidden md:flex gap-8 font-medium">
+                <li><a href="#about-me" class="hover:text-[--accent-color] transition-colors">About</a></li>
+                <li><a href="#my-work" class="hover:text-[--accent-color] transition-colors">Work</a></li>
+                <li><a href="#contact" class="hover:text-[--accent-color] transition-colors">Contact</a></li>
+            </ul>
+            <a href="#contact" class="hidden md:block px-6 py-2 cta-button">Let's Talk</a>
+        </nav>
+    </header>
+
+    <section id="hero" class="relative h-screen flex flex-col items-center justify-center p-4 text-center">
+        <div class="relative z-10 space-y-6">
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight" data-sr-id="1">Saurabh Jabtap</h1>
+            <p class="text-xl sm:text-3xl lg:text-4xl font-light text-[--primary-text] tracking-wide" data-sr-id="2">Digital Artist & Creative Designer</p>
+            <a href="#my-work" class="inline-block mt-8 px-10 py-4 font-medium cta-button" data-sr-id="3">
+                View My Gallery
+            </a>
+        </div>
+    </section>
+
+    <section id="about-me" class="py-24 px-4 md:px-16 container mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative claymorphism p-2" data-sr-id="4">
+                <img src="https://placehold.co/600x600/D1D9E6/4AB8A8?text=S+J" alt="A professional portrait of Saurabh Jabtap" class="w-full h-auto object-cover rounded-xl">
+            </div>
+            <div data-sr-id="5">
+                <h2 class="text-4xl sm:text-5xl font-bold mb-6">
+                    About My Craft
+                </h2>
+                <p class="text-lg text-[--primary-text]/80 mb-6">
+                    My design philosophy is a blend of artistry and functionality. I create digital experiences that feel tangible, using soft shapes and organic textures to make technology more humane. My work is a continuous exploration of color, form, and emotion, aiming to build connections through thoughtful design.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-work" class="py-24 px-4 md:px-16 container mx-auto">
+        <h2 class="text-4xl sm:text-5xl font-bold text-center mb-12" data-sr-id="6">Selected Works</h2>
+        <div class="flex justify-center gap-4 mb-12 flex-wrap" data-sr-id="7">
+            <button class="filter-btn px-6 py-2 rounded-full font-medium claymorphism active" data-filter="all">All</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium claymorphism" data-filter="uiux">UI/UX</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium claymorphism" data-filter="web">Web</button>
+            <button class="filter-btn px-6 py-2 rounded-full font-medium claymorphism" data-filter="graphics">Graphics</button>
+        </div>
+        <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <div class="project-card claymorphism p-6" data-category="uiux" data-sr-id="8">
+                <div class="img-container mb-4">
+                    <img src="https://placehold.co/600x400/D1D9E6/4AB8A8?text=UI%2FUX+Project" alt="A screenshot of a tactile app user interface" class="w-full h-auto object-cover">
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Tactile Interface</h3>
+                <p class="text-[--primary-text]/80">App Design</p>
+            </div>
+            <div class="project-card claymorphism p-6" data-category="graphics" data-sr-id="9">
+                <div class="img-container mb-4">
+                    <img src="https://placehold.co/600x400/D1D9E6/4AB8A8?text=Graphic+Project" alt="A sleek and modern brand identity logo" class="w-full h-auto object-cover">
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Brand Identity</h3>
+                <p class="text-[--primary-text]/80">Visuals & Branding</p>
+            </div>
+            <div class="project-card claymorphism p-6" data-category="web" data-sr-id="10">
+                <div class="img-container mb-4">
+                    <img src="https://placehold.co/600x400/D1D9E6/4AB8A8?text=Web+Project" alt="A clean e-commerce website with a minimalist design" class="w-full h-auto object-cover">
+                </div>
+                <h3 class="text-2xl font-bold mb-2">E-commerce Platform</h3>
+                <p class="text-[--primary-text]/80">Website Development</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-4 md:px-16 container mx-auto">
+        <h2 class="text-4xl sm:text-5xl font-bold text-center mb-12" data-sr-id="11">Let's Connect</h2>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+            <div class="flex md:flex-col gap-6" data-sr-id="12">
+                <a href="#" class="w-16 h-16 rounded-full claymorphism flex items-center justify-center hover:bg-[--accent-color] hover:text-[--primary-bg]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="currentColor"/></svg>
+                </a>
+                <a href="#" class="w-16 h-16 rounded-full claymorphism flex items-center justify-center hover:bg-[--accent-color] hover:text-[--primary-bg]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-8 12c0-2.209 1.547-4.102 3.847-4.802l.666 2.016c-1.42.368-2.388 1.144-2.833 2.062h3.32v1.5h-4.996c.205 1.517 1.345 2.673 2.832 3.123l-.634 2.002c-2.204-.693-3.798-2.617-3.798-4.901zm11.964 5.923c-2.395-.892-3.811-2.92-3.811-5.423 0-2.502 1.416-4.531 3.811-5.423l.634 2.002c-1.488.45-2.627 1.606-2.833 3.123h4.996v1.5h-3.32c.445.918 1.413 1.694 2.833 2.062l-.666 2.016z" fill="currentColor"/></svg>
+                </a>
+            </div>
+            <form class="w-full max-w-xl p-8 claymorphism" data-sr-id="13">
+                <div class="mb-6">
+                    <label for="name" class="block text-sm font-medium text-[--primary-text]/80 mb-2">Your Name</label>
+                    <input type="text" id="name" name="name" required class="w-full p-4 form-input" placeholder="Enter your name">
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-[--primary-text]/80 mb-2">Your Email</label>
+                    <input type="email" id="email" name="email" required class="w-full p-4 form-input" placeholder="Enter your email address">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-[--primary-text]/80 mb-2">Your Message</label>
+                    <textarea id="message" name="message" rows="4" required class="w-full p-4 form-textarea" placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 font-medium cta-button">
+                    Send
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-[--primary-text]/60">
+        <p>Crafted with care by Saurabh Jabtap</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ScrollReveal for fade-in animations
+            const sr = ScrollReveal({ distance: '20px', duration: 1000, easing: 'ease-in-out' });
+            sr.reveal('#about-me', { origin: 'bottom', delay: 200 });
+            sr.reveal('#my-work, #contact', { origin: 'top', delay: 200 });
+            sr.reveal('.project-card', { origin: 'bottom', interval: 100 });
+            sr.reveal('.cta-button', { origin: 'bottom' });
+
+            // Navbar behavior on scroll
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Portfolio filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filterValue === 'all' || category === filterValue) {
+                            card.style.display = 'block';
+                            setTimeout(() => card.style.opacity = '1', 10);
+                        } else {
+                            card.style.display = 'none';
+                            card.style.opacity = '0';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

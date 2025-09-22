@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic & UI/UX Design Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Aclonica', sans-serif;
+            color: #333333;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .firstsec, .secondsec, .thirdsec {
+            height: 100vh;
+            width: 100vw;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        /* The following are the fixed image placeholders. */
+        .firstsec {
+            background-image: url(intro\ of\ portfolio.jpg);
+        }
+
+        .secondsec {
+            background-image: url(About\ me.png);
+        }
+        
+        .thirdsec {
+            background-image: url(Desktop\ -\ 233\ 1.png);
+        }
+
+        /* --- Other existing styles below this line --- */
+        .bg-card {
+            background-color: rgba(234, 234, 234, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .border-primary {
+            border-color: #3498DB;
+        }
+        .text-primary {
+            color: #3498DB;
+        }
+        .bg-primary {
+            background-color: #3498DB;
+        }
+        .hover-bg-primary:hover {
+            background-color: #2980B9;
+        }
+        .text-gray-400 {
+            color: #555555;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(20px, -15px) scale(1.1) rotate(5deg); }
+            50% { transform: translate(-10px, 10px) scale(1) rotate(-5deg); }
+            75% { transform: translate(15px, -20px) scale(1.1) rotate(5deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
+
+        .floating-blob {
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            background-color: #a8d5e5;
+            top: 10%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            animation-duration: 18s;
+        }
+        .blob-2 {
+            background-color: #add8e6;
+            bottom: 20%;
+            right: 15%;
+            width: 400px;
+            height: 400px;
+            animation-duration: 20s;
+        }
+        .blob-3 {
+            background-color: #b0e0e6;
+            top: 50%;
+            left: 50%;
+            width: 350px;
+            height: 350px;
+            animation-duration: 16s;
+        }
+    </style>
+</head>
+<body class="antialiased bg-gradient-to-br from-blue-100 to-indigo-200">
+
+    <section class="firstsec">
+        <div class="portfoliotext">
+           
+        </div>
+    </section>
+
+    <section class="secondsec">
+        </section>
+
+    <section class="thirdsec">
+        </section>
+
+    <section id="portfolio" class="p-3 md:p-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Recent Work</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/1200x800/EAEAEA/333333?text=UI/UX+Design')">
+                    <img src="THUMNAL of case study.jpg" alt="UI/UX Design" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Website & App UI</h3>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/800x1200/EAEAEA/333333?text=Graphic+Design')">
+                    <img src="OPENHAMER  POSTER 1@3x.jpg" alt="Graphic Design" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Brand Identity & Logos</h3>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/1200x800/EAEAEA/333333?text=Branding')">
+                    <img src="MacBook Pro 16_ - 1.png" alt="Branding" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Marketing Collateral</h3>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/1200x800/EAEAEA/333333?text=Mobile+UI')">
+                    <img src="Splash screen PAGE ..png" alt="Mobile UI" class="w-full h-full object-cover rounded-xl transition-transform duration-200 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Mobile App UI</h3>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/800x1200/EAEAEA/333333?text=Graphic+Design')">
+                    <img src="Music Poster back to friends 1-Picsart-AiImageEnhancer.jpg" alt="Graphic Design" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Illustrations & Art</h3>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer" onclick="openModal('https://placehold.co/1200x800/EAEAEA/333333?text=Poster+and+Social+Media')">
+                    <img src="POSTER IMAGE.jpg" alt="Poster and Social Media" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-2">
+                        <h3 class="text-white text-lg font-semibold">Poster and social media</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 hidden">
+        <button class="absolute top-4 right-6 text-white text-4xl font-light hover:text-primary transition-colors duration-200" onclick="closeModal()">&times;</button>
+        <img id="modal-image" src="" alt="Enlarged image" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
+    </div>
+
+    <section id="contact" class="p-6 md:p-12 mb-20">
+        <div class="max-w-2xl mx-auto bg-card rounded-xl shadow-xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Get in Touch</h2>
+            <p class="text-lg text-gray-700 mb-8">
+                Ready to collaborate on your next design project? I'd love to hear from you.
+            </p>
+            <div class="flex flex-col items-center space-y-4">
+                <div class="w-full relative">
+                    <span id="contact-email" class="text-xl md:text-2xl font-semibold bg-gray-700 rounded-lg py-3 px-6 select-all inline-block w-full text-center text-white">
+                        contact@myportfolio.com
+                    </span>
+                    <button onclick="copyToClipboard('contact@myportfolio.com')" class="mt-4 px-6 py-2 rounded-full bg-primary text-white font-semibold shadow-lg hover-bg-primary transition-all duration-300">
+                        Copy Email
+                    </button>
+                    <div id="copy-message" class="mt-2 text-green-400 opacity-0 transition-opacity duration-300">
+                        Email copied!
+                    </div>
+                </div>
+                <div class="w-full max-w-md">
+                    <form action="#" method="POST" class="mt-8 space-y-4">
+                        <input type="text" placeholder="Your Name" class="w-full p-4 rounded-lg bg-gray-200 text-gray-700 border border-transparent focus:border-primary focus:outline-none transition-colors duration-200">
+                        <input type="email" placeholder="Your Email" class="w-full p-4 rounded-lg bg-gray-200 text-gray-700 border border-transparent focus:border-primary focus:outline-none transition-colors duration-200">
+                        <textarea placeholder="Your Message" rows="4" class="w-full p-4 rounded-lg bg-gray-200 text-gray-700 border border-transparent focus:border-primary focus:outline-none transition-colors duration-200"></textarea>
+                        <button type="submit" class="w-full px-8 py-4 rounded-lg bg-primary text-white font-semibold text-lg shadow-lg hover-bg-primary transition-all duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="p-6 md:p-8 text-center text-sm text-gray-600 border-t border-gray-300 mt-12">
+        <p>&copy; 2024 Pixel & Prototype. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Image modal functionality
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Copy email to clipboard
+        function copyToClipboard(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            const message = document.getElementById('copy-message');
+            message.classList.add('opacity-100');
+            setTimeout(() => {
+                message.classList.remove('opacity-100');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

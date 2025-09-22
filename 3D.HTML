@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koyshem - 3D Generalist Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Electrolize&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Extracted colors from the image */
+        :root {
+            --dark-bg: #111417; /* Main background from image */
+            --text-light: #E0E0E0; /* General light text */
+            --text-dim: #A0A0A0; /* Slightly dimmer text */
+            --accent-red: #A52B1E; /* Red from "2024" / "About Me" box */
+            --accent-orange: #C08A38; /* Orange from "PORTFOLIO" */
+            --accent-green: #376C56; /* Green from "3D Generalist" */
+            --grid-line: #3D444B; /* Lines on the grid */
+            --circle-border: #4D575E; /* Small circle borders */
+            --glow-color: rgba(0, 180, 255, 0.5); /* A subtle blue glow for effects */
+            --vfx-bg: #22262B; /* Background for VFX workflow section */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .font-electrolize {
+            font-family: 'Electrolize', sans-serif;
+        }
+
+        /* Specific styles for elements to match the image */
+        #hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem); /* Adjust font size dynamically */
+            line-height: 0.9;
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px rgba(192, 138, 56, 0.5);
+        }
+
+        .cta-button {
+            border: 1px solid var(--grid-line);
+            background-color: rgba(255,255,255,0.05); /* Slightly transparent */
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+
+        .cta-button:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--accent-orange);
+            box-shadow: 0 0 15px var(--glow-color);
+            transform: scale(1.05);
+        }
+
+        .section-header::before {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-red);
+            margin-bottom: 1rem;
+            box-shadow: 0 0 10px rgba(165, 43, 30, 0.4);
+        }
+
+        .project-card, .timeline-item, .contact-card {
+            background: rgba(var(--dark-bg-rgb), 0.7); /* Slightly transparent for depth */
+            border: 1px solid var(--grid-line);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px); /* Subtle blur for modern look */
+        }
+
+        .project-card:hover, .timeline-item:hover, .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--glow-color);
+        }
+        
+        /* Hero section circles and grid from image */
+        .hero-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at center, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 40px 40px;
+            pointer-events: none;
+            z-index: 1; /* Below content, above 3D scene */
+            opacity: 0.1;
+        }
+
+        .hero-small-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid var(--circle-border);
+            position: absolute;
+            animation: pulse-circle 2s infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes pulse-circle {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* Gradient background specific to the image's vibe */
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Cooler blue-grey gradient */
+            background-size: 400% 400%;
+            animation: flowingGradient 20s ease infinite;
+            z-index: -2;
+            opacity: 0.8; /* Slightly less opaque to let the dark bg show */
+        }
+
+        @keyframes flowingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #about-me .profile-image-wrapper {
+            border-radius: 50%;
+            border: 2px solid var(--accent-red);
+            box-shadow: 0 0 20px rgba(165, 43, 30, 0.6);
+            overflow: hidden;
+            padding: 5px; /* Creates an inner border effect */
+        }
+
+        #about-me .profile-image {
+            border-radius: 50%;
+            filter: grayscale(80%) brightness(1.1); /* Match image style */
+            transition: all 0.3s ease;
+        }
+
+        #about-me .profile-image:hover {
+            filter: grayscale(0%) brightness(1.0);
+            transform: scale(1.02);
+        }
+
+        .about-me-box {
+            border: 2px solid var(--accent-red);
+            padding: 1rem 2rem;
+            position: relative;
+            background: rgba(var(--dark-bg-rgb), 0.5); /* Slightly transparent */
+            box-shadow: 0 0 15px rgba(165, 43, 30, 0.4);
+            border-radius: 8px;
+        }
+
+        .about-me-box::before {
+            content: "About me";
+            position: absolute;
+            top: -1.5rem;
+            left: 1rem;
+            background: var(--dark-bg);
+            padding: 0 0.5rem;
+            font-family: 'Electrolize', sans-serif;
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px rgba(165, 43, 30, 0.5);
+        }
+
+        .vfx-workflow-footer {
+            background-color: var(--vfx-bg);
+            border-top: 1px solid var(--grid-line);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .vfx-workflow-footer span {
+            color: var(--accent-orange);
+            text-shadow: 0 0 5px rgba(192, 138, 56, 0.3);
+        }
+
+        /* Utility for transparent background calculation */
+        body { --dark-bg-rgb: 17, 20, 23; } /* RGB values for --dark-bg */
+
+    </style>
+</head>
+<body class="bg-[--dark-bg] text-[--text-light]">
+
+    <section id="hero" class="relative h-screen flex flex-col items-center justify-center p-4">
+        <div class="hero-background"></div>
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+        <div class="hero-grid-overlay"></div>
+
+        <div class="hero-small-circle top-4 left-4"></div>
+        <div class="hero-small-circle top-4 right-4"></div>
+        <div class="hero-small-circle bottom-4 left-4"></div>
+        <div class="hero-small-circle bottom-4 right-4"></div>
+        <div class="hero-small-circle top-1/2 left-1/4 -translate-y-1/2"></div>
+        <div class="hero-small-circle top-1/4 right-1/2 -translate-x-1/2"></div>
+        <div class="hero-small-circle bottom-1/4 left-1/2 -translate-x-1/2"></div>
+
+
+        <div id="hero-content" class="relative z-10 text-center space-y-4 md:space-y-6 lg:space-y-8 max-w-5xl mx-auto" data-sr-id="1">
+            <p class="text-lg md:text-xl font-electrolize text-left text-[--accent-red] tracking-wider ml-4 md:ml-0" style="text-shadow: 0 0 5px rgba(165, 43, 30, 0.4);">VFX & 3D <span class="text-sm">2024</span></p>
+            <div class="relative inline-block border-2 border-[--grid-line] p-4 md:p-8 rounded-lg" 
+                 style="background: rgba(var(--dark-bg-rgb), 0.4); backdrop-filter: blur(8px); box-shadow: 0 0 25px rgba(0,0,0,0.5);">
+                <h1 class="text-center font-bold uppercase tracking-widest leading-none">PORTFOLIO</h1>
+                </div>
+            <p class="text-xl md:text-3xl font-electrolize text-[--accent-green] tracking-widest" style="text-shadow: 0 0 5px rgba(55, 108, 86, 0.4);">3D Generalist</p>
+            <p class="text-3xl md:text-5xl font-bold uppercase tracking-wider text-[--text-light]" style="text-shadow: 0 0 8px rgba(224, 224, 224, 0.5);">Koyshem</p>
+            
+            <a href="#about-me" class="inline-block mt-8 px-10 py-4 font-medium uppercase cta-button" data-sr-id="2">
+                Learn More
+            </a>
+        </div>
+    </section>
+
+    <section id="about-me" class="py-20 px-4 md:px-16 container mx-auto relative z-10">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="flex justify-center md:justify-end" data-sr-id="3">
+                <div class="profile-image-wrapper w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+                    <img src="https://placehold.co/600x600/111417/A52B1E?text=Koyshem" alt="Koyshem" class="profile-image w-full h-full object-cover">
+                </div>
+            </div>
+            <div class="about-me-box p-6 md:p-8 rounded-md" data-sr-id="4">
+                <p class="text-[--text-light]/90 mb-6 text-sm md:text-base">
+                    I'm 3D Generalist with over 6 years of experience in the field. Extensive experience with 3D tracking, procedural animations and modeling, fire simulations, particle simulations and many more aspects. Worked with a huge variety of different projects: from regular 3d models to large visualizations for mixed-size screens and gum projections on architecture. In short, successfully completed over 25 completely different projects.
+                </p>
+                <p class="font-semibold text-[--text-dim] mb-3 text-sm md:text-base">My main software:</p>
+                <ul class="list-disc list-inside space-y-1 text-sm md:text-base ml-4">
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>Cinema 4D <span class="text-[--accent-red] ml-1 mr-1">+</span> Octane Render <span class="text-[--accent-red] ml-1 mr-1">+</span> Redshift.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>Adobe: After Effects, Substance Painter, Photoshop, Illustrator, Premier Pro.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>Foundry: Nuke.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>PFTrack.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>Fusion 360 <span class="text-[--accent-red] ml-1 mr-1">+</span> MOI 3D <span class="text-[--accent-red] ml-1 mr-1">+</span> Plasticity.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>Marvelous Designer.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-[--accent-green]">·</span>World Creator <span class="text-[--accent-red] ml-1 mr-1">+</span> ZBrush.
+                    </li>
+                </ul>
+                <p class="text-[--text-dim] text-xs mt-4 italic">* have experience with this software, but consider it incomplete and now actively researching.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-work" class="py-20 px-4 md:px-16 container mx-auto relative z-10">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 uppercase font-electrolize text-[--accent-orange] section-header" data-sr-id="5">My Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="project-card p-6 rounded-md" data-sr-id="6">
+                <img src="https://placehold.co/600x400/111417/C08A38?text=Project+Example+1" alt="Project 1" class="w-full h-auto object-cover mb-4">
+                <h3 class="text-xl font-bold mb-2 uppercase text-[--text-light]">Procedural Cities</h3>
+                <p class="text-[--text-dim]">VFX Environment Design</p>
+            </div>
+            <div class="project-card p-6 rounded-md" data-sr-id="7">
+                <img src="https://placehold.co/600x400/111417/A52B1E?text=Project+Example+2" alt="Project 2" class="w-full h-auto object-cover mb-4">
+                <h3 class="text-xl font-bold mb-2 uppercase text-[--text-light]">Particle Simulations</h3>
+                <p class="text-[--text-dim]">Abstract Motion Graphics</p>
+            </div>
+            <div class="project-card p-6 rounded-md" data-sr-id="8">
+                <img src="https://placehold.co/600x400/111417/376C56?text=Project+Example+3" alt="Project 3" class="w-full h-auto object-cover mb-4">
+                <h3 class="text-xl font-bold mb-2 uppercase text-[--text-light]">Architectural Viz</h3>
+                <p class="text-[--text-dim]">Mixed-Size Projections</p>
+            </div>
+        </div>
+        <div class="text-center mt-12" data-sr-id="9">
+            <a href="#" class="inline-block px-8 py-3 font-medium uppercase cta-button">View All Work</a>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 md:px-16 container mx-auto relative z-10">
+        <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 uppercase font-electrolize text-[--accent-red] section-header" data-sr-id="10">Connect with Koyshem</h2>
+        <form class="w-full max-w-xl contact-card p-8 rounded-md mx-auto" data-sr-id="11">
+            <div class="relative mb-6 group">
+                <input type="text" id="name" name="name" required class="w-full p-4 bg-transparent border-b-2 border-b-[--grid-line] outline-none focus:border-b-[--accent-green] transition-colors peer" placeholder=" ">
+                <label for="name" class="absolute left-4 top-4 text-[--text-dim] transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:text-xs peer-focus:text-[--accent-green] peer-valid:top-0 peer-valid:text-xs">Name</label>
+            </div>
+            <div class="relative mb-6 group">
+                <input type="email" id="email" name="email" required class="w-full p-4 bg-transparent border-b-2 border-b-[--grid-line] outline-none focus:border-b-[--accent-green] transition-colors peer" placeholder=" ">
+                <label for="email" class="absolute left-4 top-4 text-[--text-dim] transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:text-xs peer-focus:text-[--accent-green] peer-valid:top-0 peer-valid:text-xs">Email</label>
+            </div>
+            <div class="relative mb-6 group">
+                <textarea id="message" name="message" rows="4" required class="w-full p-4 bg-transparent border-b-2 border-b-[--grid-line] outline-none focus:border-b-[--accent-green] transition-colors peer" placeholder=" "></textarea>
+                <label for="message" class="absolute left-4 top-4 text-[--text-dim] transition-all duration-300 pointer-events-none peer-focus:top-0 peer-focus:text-xs peer-focus:text-[--accent-green] peer-valid:top-0 peer-valid:text-xs">Message</label>
+            </div>
+            <button type="submit" class="w-full py-4 font-medium uppercase cta-button">
+                Send Message
+            </button>
+        </form>
+    </section>
+
+    <footer class="vfx-workflow-footer py-6 text-center text-[--text-dim] text-sm md:text-base relative z-10">
+        <p class="uppercase tracking-wide">
+            VFX 
+            <span class="text-[--text-light] font-bold">Tracking</span> > 
+            <span class="text-[--text-light] font-bold">Matchmoving</span> > 
+            <span class="text-[--text-light] font-bold">Integration</span> > 
+            <span class="text-[--text-light] font-bold">Building</span> > 
+            <span class="text-[--text-light] font-bold">Rendering</span> > 
+            <span class="text-[--text-light] font-bold">Post-Production</span>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ScrollReveal for fade-in animations
+            ScrollReveal({ distance: '20px', duration: 800, easing: 'ease-in-out' });
+            ScrollReveal().reveal('#hero-content', { origin: 'top', delay: 100 });
+            ScrollReveal().reveal('#about-me', { origin: 'bottom', delay: 200 });
+            ScrollReveal().reveal('.project-card, .vfx-workflow-footer', { origin: 'bottom', interval: 100 });
+            ScrollReveal().reveal('#my-work .section-header, #contact .section-header', { origin: 'top', delay: 100 });
+
+
+            // Smooth scrolling for CTA button
+            const ctaButton = document.querySelector('#hero-content .cta-button');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // THREE.js 3D Scene Setup
+            let scene, camera, renderer, object;
+            let mouseX = 0, mouseY = 0;
+            let windowHalfX = window.innerWidth / 2;
+            let windowHalfY = window.innerHeight / 2;
+            let clock = new THREE.Clock(); // For object animation
+
+            function init3D() {
+                // Scene
+                scene = new THREE.Scene();
+                // Add a very subtle fog to match the dark, atmospheric mood
+                scene.fog = new THREE.FogExp2(0x111417, 0.05); 
+
+                // Camera
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100); // Max distance 100 for fog effect
+                camera.position.z = 8; // Moved back slightly
+
+                // Renderer
+                const canvas = document.getElementById('hero-canvas');
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                // Object - Abstract, sci-fi geometric shape with dynamic material
+                const geometry = new THREE.TorusKnotGeometry(2, 0.6, 120, 20); // More prominent TorusKnot
+                const material = new THREE.MeshStandardMaterial({ 
+                    color: 0x888888, // Neutral base color
+                    emissive: 0x0077ff, // Subtle blue glow
+                    emissiveIntensity: 0.2,
+                    metalness: 0.9, // Very metallic
+                    roughness: 0.1, // Highly reflective
+                    wireframe: false // Solid object for better light interaction
+                });
+                object = new THREE.Mesh(geometry, material);
+                scene.add(object);
+
+                // Lighting - More dramatic lighting to highlight metallic surfaces
+                const ambientLight = new THREE.AmbientLight(0x404040, 0.5); 
+                scene.add(ambientLight);
+
+                const pointLight1 = new THREE.PointLight(0xffffff, 1.2, 50); // White light
+                pointLight1.position.set(10, 10, 10);
+                scene.add(pointLight1);
+
+                const pointLight2 = new THREE.PointLight(0xff0000, 0.8, 40); // Red hint light
+                pointLight2.position.set(-10, -5, -10);
+                scene.add(pointLight2);
+
+                const pointLight3 = new THREE.PointLight(0x00ffcc, 0.7, 40); // Cyan/Green hint light
+                pointLight3.position.set(0, 10, -10);
+                scene.add(pointLight3);
+
+                // Event Listeners
+                document.addEventListener('mousemove', onDocumentMouseMove, false);
+                window.addEventListener('resize', onWindowResize, false);
+            }
+
+            function onDocumentMouseMove(event) {
+                mouseX = (event.clientX - windowHalfX) * 0.0005; // Reduced sensitivity
+                mouseY = (event.clientY - windowHalfY) * 0.0005; // Reduced sensitivity
+            }
+
+            function onWindowResize() {
+                windowHalfX = window.innerWidth / 2;
+                windowHalfY = window.innerHeight / 2;
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const delta = clock.getDelta(); 
+                const elapsedTime = clock.elapsedTime;
+
+                // Smoothly interpolate object rotation towards mouse position
+                object.rotation.x += (mouseY * 0.5 - object.rotation.x) * 0.02; // Slower follow
+                object.rotation.y += (mouseX * 0.5 - object.rotation.y) * 0.02; // Slower follow
+
+                // Continuous slow rotation for dynamism
+                object.rotation.z += 0.002;
+                object.rotation.y += 0.001; 
+
+                // Slight hover effect for the object
+                object.position.y = Math.sin(elapsedTime * 0.3) * 0.2;
+
+                // Animate lights for more dynamic scene
+                scene.children.forEach(child => {
+                    if (child.isPointLight) {
+                        child.position.x = Math.sin(elapsedTime * 0.5 + child.id) * 15;
+                        child.position.y = Math.cos(elapsedTime * 0.4 + child.id) * 15;
+                    }
+                });
+                
+                renderer.render(scene, camera);
+            }
+
+            // Start the 3D scene on window load
+            window.onload = function() {
+                init3D();
+                animate();
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ganesh Mali — Creative UI/UX & Graphic Designer</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP (animations) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Icons (simple) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ==================================================
+       Base & Utilities
+       ================================================== */
+    :root{
+      --bg1: linear-gradient(135deg,#7F00FF 0%, #E100FF 40%, #00c6ff 100%);
+      --accent1: linear-gradient(135deg,#00c6ff,#0072ff);
+      --accent2: linear-gradient(135deg,#ff9966,#ff5e62);
+      --glass: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.12);
+      --neon: rgba(127,0,255,0.18);
+      --glass-blur: 12px;
+      --radius: 18px;
+      --max-width: 1200px;
+      --text: #eaf0ff;
+      --muted: rgba(234,240,255,0.65);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Poppins', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(127,0,255,0.08), transparent 8%), radial-gradient(900px 500px at 90% 90%, rgba(0,198,255,0.06), transparent 9%), #05040a;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+
+    .container{max-width:var(--max-width); margin:0 auto; padding:0 20px}
+
+    /* -----------------------------------------------
+       Top nav
+       -----------------------------------------------*/
+    header{position:fixed; top:20px; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:center; pointer-events:none}
+    .nav-inner{pointer-events:auto; width:100%; max-width:var(--max-width); display:flex; align-items:center; justify-content:space-between; padding:10px 20px; backdrop-filter:blur(6px); background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; border:1px solid rgba(255,255,255,0.05)}
+    .logo{display:flex; gap:10px; align-items:center}
+    .logo .avatar{width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,#7F00FF,#E100FF); display:grid; place-items:center; font-weight:700}
+    nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
+    nav a{font-weight:600; font-size:14px; color:var(--muted)}
+
+    /* -----------------------------------------------
+       Hero / Landing
+       -----------------------------------------------*/
+    .hero{min-height:100vh; display:flex; align-items:center; position:relative; padding:140px 0 80px}
+    .hero-inner{display:flex; gap:48px; align-items:center}
+
+    .hero-left{flex:1}
+    .hero h1{font-size:clamp(28px,6vw,64px); margin:0 0 12px; line-height:1.02; letter-spacing:-0.5px; font-weight:800}
+    .tagline{font-size:clamp(14px,2vw,20px); color:var(--muted); margin-bottom:20px}
+
+    .cta{display:inline-block; padding:14px 22px; border-radius:14px; font-weight:700; cursor:pointer; background:linear-gradient(135deg,#7F00FF,#E100FF); box-shadow:0 8px 30px rgba(127,0,255,0.14); border:1px solid rgba(255,255,255,0.06); position:relative; overflow:hidden}
+    .cta .inner{position:relative; z-index:2}
+    .cta::after{content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0)); opacity:0; transition:all .45s}
+    .cta:hover{transform:translateY(-4px)}
+    .cta:hover::after{opacity:1}
+
+    .hero-right{width:420px; max-width:38vw}
+
+    /* Floating gradient blobs */
+    .blob{position:absolute; border-radius:50%; filter:blur(30px); transform:translate3d(0,0,0); mix-blend-mode:screen}
+    .blob.one{width:540px; height:540px; right:-140px; top:-120px; background:linear-gradient(135deg,#7F00FF,#00c6ff); opacity:0.12}
+    .blob.two{width:360px;height:360px; left:-120px; bottom:-120px; background:linear-gradient(135deg,#ff9966,#ff5e62); opacity:0.12}
+
+    /* Glass card in hero */
+    .card-hero{padding:20px; border-radius:20px; backdrop-filter: blur(12px) saturate(120%); background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06)}
+
+    /* Profile gradient framed image */
+    .profile-frame{width:140px; height:140px; border-radius:16px; padding:6px; background:linear-gradient(135deg,#00c6ff,#0072ff);}
+    .profile-frame img{width:100%; height:100%; object-fit:cover; border-radius:12px; display:block}
+
+    /* -----------------------------------------------
+       About Section
+       -----------------------------------------------*/
+    section{padding:80px 0}
+    .about{display:grid; grid-template-columns:1fr; gap:28px; align-items:center}
+    .about-inner{display:flex; gap:30px; align-items:center}
+
+    .about-card{padding:22px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(10px)}
+
+    .skills{display:flex; gap:16px; flex-wrap:wrap}
+    .skill{width:110px; text-align:center}
+    .skill .circle{width:86px; height:86px; border-radius:50%; display:grid; place-items:center; font-weight:700; background:conic-gradient(#fff0, #fff0); position:relative}
+    .skill .label{font-size:13px;color:var(--muted); margin-top:8px}
+
+    /* Animated circular progress via CSS variables */
+    .circle svg{transform:rotate(-90deg)}
+
+    /* -----------------------------------------------
+       Timeline / Education
+       -----------------------------------------------*/
+    .timeline{position:relative; padding-left:28px}
+    .timeline::before{content:''; position:absolute; left:12px; top:0; bottom:0; width:4px; background:linear-gradient(180deg,#7F00FF,#00c6ff); border-radius:2px; box-shadow:0 0 18px rgba(0,198,255,0.08)}
+    .milestone{position:relative; margin:20px 0 40px}
+    .milestone .node{position:absolute; left:-26px; top:6px; width:18px; height:18px; border-radius:50%; background:linear-gradient(135deg,#ff9966,#ff5e62); box-shadow:0 0 18px rgba(255,94,98,0.12); border:3px solid rgba(255,255,255,0.06)}
+    .milestone .milestone-card{padding:16px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(8px)}
+
+    /* -----------------------------------------------
+       Portfolio Grid
+       -----------------------------------------------*/
+    .filters{display:flex; gap:10px; margin-bottom:18px}
+    .filter-btn{padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600; background:transparent; border:1px solid rgba(255,255,255,0.04)}
+    .filter-btn.active{background:var(--glass); border:1px solid rgba(255,255,255,0.06); box-shadow:0 6px 20px rgba(127,0,255,0.06)}
+
+    .grid{display:grid; grid-template-columns:1fr; gap:18px}
+    .project{position:relative; border-radius:14px; overflow:hidden; min-height:220px; border:1px solid rgba(255,255,255,0.04); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); transition:transform .45s, box-shadow .35s}
+    .project .frame{position:absolute; inset:10px; border-radius:12px; background:linear-gradient(135deg, rgba(127,0,255,0.08), rgba(0,198,255,0.06)); opacity:0.9; pointer-events:none}
+    .project:hover{transform:translateY(-8px) scale(1.01); box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .project .thumbnail{height:100%; width:100%; object-fit:cover; display:block}
+    .project .overlay{position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:20px; opacity:0; transform:translateY(8px); transition:all .45s; background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.42))}
+    .project:hover .overlay{opacity:1; transform:translateY(0)}
+    .overlay h3{margin:0; font-size:18px}
+    .overlay p{margin:8px 0 0; color:var(--muted); font-size:13px}
+
+    /* -----------------------------------------------
+       Contact
+       -----------------------------------------------*/
+    .contact{border-radius:20px; padding:30px; background:linear-gradient(135deg, rgba(127,0,255,0.06), rgba(0,198,255,0.03)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(8px)}
+    .form-row{display:flex; gap:12px}
+    input, textarea{width:100%; padding:14px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--text); outline:none; font-size:14px}
+    label.floating{position:relative}
+    label.floating input:focus + .label, label.floating input:not(:placeholder-shown) + .label, label.floating textarea:focus + .label, label.floating textarea:not(:placeholder-shown) + .label{transform:translateY(-14px) scale(.86); opacity:1}
+    .label{position:absolute; left:14px; top:14px; pointer-events:none; color:var(--muted); transition:all .24s ease}
+    .send-btn{display:inline-block; padding:12px 18px; border-radius:12px; background:linear-gradient(135deg,#ff9966,#ff5e62); border:none; cursor:pointer; font-weight:700}
+
+    /* -----------------------------------------------
+       Footer
+       -----------------------------------------------*/
+    footer{padding:28px 0; background:linear-gradient(180deg,#05030a, #02020a); border-top:1px solid rgba(255,255,255,0.02)}
+    .socials{display:flex; gap:10px}
+    .socials a{padding:10px; border-radius:10px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04)}
+
+    /* -----------------------------------------------
+       Responsive
+       -----------------------------------------------*/
+    @media(min-width:880px){
+      .about{grid-template-columns:420px 1fr}
+      .grid{grid-template-columns:repeat(2, 1fr)}
+      .hero-inner{align-items:flex-start}
+    }
+    @media(min-width:1200px){
+      .grid{grid-template-columns:repeat(3, 1fr)}
+      .hero-right{width:480px}
+    }
+
+    /* small screen tweaks */
+    @media(max-width:600px){
+      header{top:12px;padding:0 12px}
+      .hero{padding:120px 0 60px}
+      .hero-inner{flex-direction:column-reverse}
+      .hero-right{width:100%; max-width:420px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background blobs -->
+  <div class="blob one" aria-hidden="true"></div>
+  <div class="blob two" aria-hidden="true"></div>
+
+  <!-- Header / Nav -->
+  <header>
+    <div class="nav-inner container">
+      <div class="logo">
+        <div class="avatar">GM</div>
+        <div style="font-weight:700">Ganesh Mali</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#work">My Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="card-hero">
+            <h1>Ganesh Mali</h1>
+            <div class="tagline">Creative UI/UX & Graphic Designer</div>
+
+            <p style="color:var(--muted); margin:0 0 18px; max-width:640px">I craft elegant digital products and visual identities — blending research-driven UX with pixel-perfect visual design. I design interfaces that feel premium, delightful, and human.</p>
+
+            <div style="display:flex; gap:12px; align-items:center">
+              <button class="cta" id="cta-work"><span class="inner">See My Work</span></button>
+              <a href="#contact" class="cta" style="background:linear-gradient(135deg,#00c6ff,#0072ff)"><span class="inner">Hire Me</span></a>
+            </div>
+          </div>
+
+          <!-- Small highlights -->
+          <div style="display:flex; gap:12px; margin-top:18px">
+            <div class="card-hero" style="display:flex; gap:12px; align-items:center; padding:10px 14px; border-radius:12px">
+              <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#7F00FF,#E100FF); display:grid; place-items:center; font-weight:700">UI</div>
+              <div>
+                <div style="font-weight:700">10+ Projects</div>
+                <div style="font-size:13px;color:var(--muted)">Web, Mobile & Brand</div>
+              </div>
+            </div>
+            <div class="card-hero" style="display:flex; gap:12px; align-items:center; padding:10px 14px; border-radius:12px">
+              <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#00c6ff,#0072ff); display:grid; place-items:center; font-weight:700">XD</div>
+              <div>
+                <div style="font-weight:700">Design Systems</div>
+                <div style="font-size:13px;color:var(--muted)">Figma / Adobe</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-right">
+          <!-- Profile card with gradient border -->
+          <div class="profile-frame" style="margin-bottom:18px">
+            <!-- Replace the src below with your real photo. Using placeholder at the moment -->
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Ganesh Mali">
+          </div>
+
+          <div class="card-hero">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+              <div style="font-weight:700">Skills</div>
+              <div style="font-size:13px;color:var(--muted)">Pro level</div>
+            </div>
+
+            <div class="skills">
+              <div class="skill" data-skill="90">
+                <div class="circle" aria-hidden>
+                  <!-- circle progress via SVG -->
+                  <svg width="86" height="86" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="12" fill="none"/><circle class="progress" cx="50" cy="50" r="40" stroke-width="12" stroke-linecap="round" fill="none" stroke="url(#g1)"/></svg>
+                </div>
+                <div class="label">UI Design</div>
+              </div>
+
+              <div class="skill" data-skill="84">
+                <div class="circle">
+                  <svg width="86" height="86" viewBox="0 0 100 100"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#00c6ff"/><stop offset="1" stop-color="#0072ff"/></linearGradient></defs><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="12" fill="none"/><circle class="progress" cx="50" cy="50" r="40" stroke-width="12" stroke-linecap="round" fill="none" stroke="url(#g2)"/></svg>
+                </div>
+                <div class="label">UX Research</div>
+              </div>
+
+              <div class="skill" data-skill="76">
+                <div class="circle">
+                  <svg width="86" height="86" viewBox="0 0 100 100"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#ff9966"/><stop offset="1" stop-color="#ff5e62"/></linearGradient></defs><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.08)" stroke-width="12" fill="none"/><circle class="progress" cx="50" cy="50" r="40" stroke-width="12" stroke-linecap="round" fill="none" stroke="url(#g3)"/></svg>
+                </div>
+                <div class="label">Graphic Design</div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about container">
+      <div class="about-card">
+        <h2 style="margin-top:0">About Me</h2>
+        <p style="color:var(--muted)">Hi — I'm Ganesh, a UI/UX & Graphic Designer focused on building beautiful, human-centered interfaces. I combine research, strategy, and visual craft to deliver cohesive digital products and brand systems.</p>
+
+        <div style="margin-top:18px">
+          <strong style="display:block">Tools</strong>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px">
+            <span class="card-hero" style="padding:8px 10px; border-radius:10px; font-weight:600">Figma</span>
+            <span class="card-hero" style="padding:8px 10px; border-radius:10px; font-weight:600">Adobe CC</span>
+            <span class="card-hero" style="padding:8px 10px; border-radius:10px; font-weight:600">HTML/CSS</span>
+            <span class="card-hero" style="padding:8px 10px; border-radius:10px; font-weight:600">Illustrator</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:18px">
+        <div class="card-hero">
+          <h3 style="margin:0 0 8px">Selected Work Approach</h3>
+          <p style="color:var(--muted); margin:0">Research > Ideation > Prototype > Validate > Deliver. I build accessible interfaces and scalable design systems. I love working on SaaS dashboards and mobile experiences.</p>
+        </div>
+
+        <div class="card-hero">
+          <h3 style="margin:0 0 8px">Availability</h3>
+          <p style="color:var(--muted); margin:0">Open to freelance projects and full-time roles. Available to start from Q4 2025.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION / TIMELINE -->
+    <section id="education" class="container">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="milestone">
+          <div class="node" aria-hidden></div>
+          <div class="milestone-card">
+            <strong>B.Com in Finance — B.K. Birla College, Mumbai University (2024)</strong>
+            <div style="color:var(--muted); margin-top:6px">Specialised in Financial Management — graduated with practical projects focused on budgeting and analysis.</div>
+          </div>
+        </div>
+
+        <div class="milestone">
+          <div class="node" aria-hidden></div>
+          <div class="milestone-card">
+            <strong>UI/UX & Graphic Design Diploma (2025)</strong>
+            <div style="color:var(--muted); margin-top:6px">Completed a professional diploma covering UI principles, prototyping, and branding.</div>
+          </div>
+        </div>
+
+        <div class="milestone">
+          <div class="node" aria-hidden></div>
+          <div class="milestone-card">
+            <strong>Figma Essentials — Udemy (Course)</strong>
+            <div style="color:var(--muted); margin-top:6px">Practical Figma workflows for UX, components, and collaborative design.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK / PORTFOLIO -->
+    <section id="work" class="container">
+      <h2>My Work</h2>
+
+      <div class="filters" role="tablist">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="uiux">UI/UX</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="graphics">Graphics</button>
+      </div>
+
+      <div class="grid" id="portfolio-grid">
+        <!-- Project 1 -->
+        <article class="project" data-category="uiux">
+          <div class="frame"></div>
+          <img class="thumbnail" src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="project-1">
+          <div class="overlay">
+            <div>
+              <h3>Mobile Banking Redesign</h3>
+              <p>UI/UX case study focused on simplifying payments & improving onboarding.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project" data-category="web">
+          <div class="frame"></div>
+          <img class="thumbnail" src="https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="project-2">
+          <div class="overlay">
+            <div>
+              <h3>Brewora Coffee Shop</h3>
+              <p>Brand identity & e‑commerce landing with immersive visuals.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project" data-category="graphics">
+          <div class="frame"></div>
+          <img class="thumbnail" src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="project-3">
+          <div class="overlay">
+            <div>
+              <h3>Visual Identity — Brand Kit</h3>
+              <p>Logo exploration, color systems and poster series.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project" data-category="uiux">
+          <div class="frame"></div>
+          <img class="thumbnail" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="project-4">
+          <div class="overlay">
+            <div>
+              <h3>SaaS Dashboard — Analytics</h3>
+              <p>Complex data visualizations made simple and actionable.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="project" data-category="web">
+          <div class="frame"></div>
+          <img class="thumbnail" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="project-5">
+          <div class="overlay">
+            <div>
+              <h3>Marketing Landing</h3>
+              <p>Conversion-focused landing with micro-interactions.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container">
+      <h2>Contact Me</h2>
+
+      <div class="contact">
+        <form id="contact-form" onsubmit="return false">
+          <div style="display:flex; gap:12px; flex-wrap:wrap">
+            <label class="floating" style="flex:1; min-width:200px">
+              <input type="text" id="name" required placeholder=" " />
+              <span class="label">Your name</span>
+            </label>
+
+            <label class="floating" style="flex:1; min-width:200px">
+              <input type="email" id="email" required placeholder=" " />
+              <span class="label">Email</span>
+            </label>
+          </div>
+
+          <label class="floating" style="display:block; margin-top:12px">
+            <textarea id="message" rows="6" placeholder=" " required></textarea>
+            <span class="label">Message</span>
+          </label>
+
+          <div style="display:flex; gap:12px; align-items:center; margin-top:12px">
+            <button class="send-btn" id="send">Send Message</button>
+            <div style="color:var(--muted); font-size:13px">Or reach me at <a href="mailto:ganesh@example.com">ganesh@example.com</a></div>
+          </div>
+        </form>
+
+        <div style="margin-top:18px; display:flex; gap:12px; align-items:center">
+          <a class="socials" href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+          <a class="socials" href="#" aria-label="Behance"><i class="fa-brands fa-behance fa-lg"></i></a>
+          <a class="socials" href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble fa-lg"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+        <div style="font-weight:700">© Ganesh Mali — 2025</div>
+        <div style="color:var(--muted)">Designed with ❤️ & code</div>
+        <div class="socials">
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#"><i class="fa-brands fa-behance"></i></a>
+          <a href="#"><i class="fa-brands fa-dribbble"></i></a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // =========================
+    // Smooth scroll to section
+    // =========================
+    document.getElementById('cta-work').addEventListener('click', function(){
+      document.getElementById('work').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    // =========================
+    // Animate skill circles (SVG strokeDashoffset)
+    // =========================
+    document.querySelectorAll('.skill').forEach(function(el, i){
+      const pct = Number(el.getAttribute('data-skill') || 75);
+      const circle = el.querySelector('.progress');
+      if(!circle) return;
+      const r = circle.r.baseVal.value;
+      const c = 2 * Math.PI * r;
+      circle.style.strokeDasharray = c;
+      circle.style.strokeDashoffset = c;
+
+      // gradient fallback: set stroke to two-tone using existing defs
+      setTimeout(()=>{
+        const offset = c - (pct/100) * c;
+        // animate with GSAP
+        gsap.to(circle, {strokeDashoffset: offset, duration:1.2, ease:'power3.out'});
+      }, 300 + (i*140));
+    });
+
+    // =========================
+    // Portfolio filters
+    // =========================
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.getAttribute('data-filter');
+        document.querySelectorAll('#portfolio-grid .project').forEach(p=>{
+          if(f==='all' || p.getAttribute('data-category')===f){
+            p.style.display='block';
+            gsap.to(p, {opacity:1, y:0, duration:.5, ease:'power3.out'});
+          } else {
+            gsap.to(p, {opacity:0, y:20, duration:.35, ease:'power3.out', onComplete:()=> p.style.display='none'});
+          }
+        });
+      })
+    });
+
+    // =========================
+    // Entrance animations with GSAP + ScrollTrigger
+    // =========================
+    gsap.registerPlugin(ScrollTrigger);
+
+    // hero fade-in
+    gsap.from('.hero .card-hero', {opacity:0, y:20, duration:1, ease:'power3.out'});
+
+    // blobs float animation
+    gsap.to('.blob.one', {y:-30, x:-40, duration:8, repeat:-1, yoyo:true, ease:'sine.inOut'});
+    gsap.to('.blob.two', {y:40, x:40, duration:10, repeat:-1, yoyo:true, ease:'sine.inOut'});
+
+    // timeline fade up on scroll
+    gsap.utils.toArray('.milestone').forEach((el, i)=>{
+      gsap.from(el, {scrollTrigger:{trigger:el, start:'top 80%'}, opacity:0, y:30, duration:0.8, delay:i*0.08, ease:'power3.out'});
+    });
+
+    // project hover tilt micro animation
+    document.querySelectorAll('.project').forEach(card=>{
+      card.addEventListener('mousemove', (e)=>{
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) - rect.width/2;
+        const y = (e.clientY - rect.top) - rect.height/2;
+        gsap.to(card, {rotationY: x/40, rotationX: -y/40, transformPerspective:600, ease:'power1.out', duration:.4});
+      });
+      card.addEventListener('mouseleave', ()=> gsap.to(card, {rotationY:0, rotationX:0, duration:.6, ease:'power3.out'}));
+    });
+
+    // reveal projects in sequence
+    gsap.from('#portfolio-grid .project', {opacity:0, y:20, duration:0.8, stagger:0.12, ease:'power3.out', scrollTrigger:{trigger:'#work', start:'top 85%'}});
+
+    // form send (demo behaviour)
+    document.getElementById('send').addEventListener('click', ()=>{
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message){
+        alert('Please fill all fields.'); return;
+      }
+      // micro success animation
+      gsap.to('#send', {scale:0.96, duration:.08, yoyo:true, repeat:1});
+      // simulated send
+      alert('Thanks ' + (name||'there') + '! Your message was sent (demo).');
+      document.getElementById('contact-form').reset();
+    });
+
+    // small polyfill for smooth scroll on older browsers
+    (function(){
+      if('scrollBehavior' in document.documentElement.style) return;
+      var anchors = document.querySelectorAll('a[href^="#"]');
+      for(var i=0;i<anchors.length;i++){
+        anchors[i].addEventListener('click', function(e){
+          e.preventDefault(); var id = this.getAttribute('href').slice(1); var el = document.getElementById(id); if(el){window.scrollTo({top:el.offsetTop, behavior:'smooth'})}
+        })
+      }
+    })();
+
+  </script>
+
+</body>
+</html>
